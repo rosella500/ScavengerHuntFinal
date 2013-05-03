@@ -1,0 +1,45 @@
+Version 0.95b
+05/02/2013
+4:05 AM
+Added skeleton final cutscene
+Added Powerpoint presentation
+
+Version 0.91b
+05/02/2013
+2:54 AM
+Quit button on main menu working
+
+Version 0.9b
+05/02/2013
+1:41 AM
+Added all event triggers, locks, puzzles, and skeleton cutscenes
+
+Version 0.7b
+05/01/2013
+3:15 AM
+Added in all rooms and hotspots with corresponding changes to rooms.csv
+Fixed pause menu bugs
+
+Version 0.4a
+04/30/2013
+12:12 AM
+Implemented modularized code
+Used new pause menu with current note playback
+Bugs: both lock sounds will play when lock is unlocked
+
+Version 0.3a
+04/25/2013
+7:01 PM
+Implemented room changing via CSV
+Fixed a bug causing the game to crash when it interacted with a NoneSound
+
+Version 0.2a
+04/14/2013
+2:47 PM
+Implemented Splash, Main Menu, and Pause screen frameworks
+Cutscenes are skippable by clicking or pressing escape
+
+Version 0.1a
+04/10/2013
+3:17 PM
+Sound stops when changing room\hotspots
