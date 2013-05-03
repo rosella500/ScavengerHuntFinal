@@ -4,12 +4,12 @@ import os, pygame, json, csv
 from cutscene import *
 from hotspot import *
 from exit_class import *
-from object_class import *
 from room import *
 from pause_menu import *
 from movieScene import *
 from pygame.locals import *
 from utils import *
+from mainMenu import *
 from modes import ModeManager, GameMode, SimpleMode
 
 kDataDir = 'data'
@@ -24,61 +24,6 @@ main_menu_bool = False
 
 ##Keep track of last gameMode (room)
 global lastMode
-
-
-class MainMenu( GameMode ):
-    def __init__( self ):
-        ## Initialize the superclass.
-        GameMode.__init__( self )
-        self.image, _ = load_image( 'MainMenu.jpg' )
-        self.backgroundMusic = None
-        ##load and play music
-        try:
-            self.backgroundMusic = os.path.join(kDataDir,'Eternal Memory.ogg')
-            pygame.mixer.music.load( self.backgroundMusic )
-            global splash_bool
-            splash_bool = False
-            global main_menu_bool
-            main_menu_bool = True
-        except pygame.error, message:
-            print 'Cannot load music:'
-            raise SystemExit, message
-        self.start_rect = pygame.Rect( 13, 77, 159, 36 )
-        self.quit_rect = pygame.Rect(14,117,97,32)
-        
-        self.mouse_down_pos = (-1,-1)
-    
-    def enter(self):
-        pass
-        pygame.mixer.music.load( self.backgroundMusic )
-        pygame.mixer.music.play(1)
-        
-    def exit(self):
-        pass
-        pygame.mixer.music.stop()
-    
-    def mouse_button_down( self, event ):
-        self.mouse_down_pos = event.pos
-    
-    def mouse_button_up( self, event ):
-        
-        def collides_down_and_up( r ):
-            return r.collidepoint( self.mouse_down_pos ) and r.collidepoint( event.pos )
-        
-        if collides_down_and_up( self.start_rect ):
-            print 'play!'
-            global main_menu_bool
-            main_menu_bool = False
-            self.switch_to_mode( 'Intro' )
-        if collides_down_and_up( self.quit_rect ):
-            print 'Quit!'
-            self.quit()
-    
-    def draw( self, screen ):
-        ## Draw the HUD.
-        screen.blit( self.image, ( 0,0 ) )
-        pygame.display.flip()
-
   
         
 def main():
@@ -242,7 +187,6 @@ def main():
     
     ### Game over.
     
-    ## TODO: Save game state (see pygame.register_quit()).
 
 
 ## this calls the 'main' function when this script is executed

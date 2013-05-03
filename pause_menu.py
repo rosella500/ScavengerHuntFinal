@@ -22,11 +22,9 @@ class PauseMenu(GameMode):
         self.mouse_down_pos = (-1,-1)#need default position for mouse
 
     def mouse_button_down( self, event ):
-        #print("pause menu test 1")
         self.mouse_down_pos = event.pos
 
     def mouse_button_up( self, event ):
-        #print("pause menu test 2")
         for hotspot in self.hotspots:
             hotspot.sound.stop()
             
@@ -34,7 +32,6 @@ class PauseMenu(GameMode):
             return r.collidepoint( self.mouse_down_pos ) and r.collidepoint( event.pos )
 
         for hotspot in self.hotspots:
-            #print("pause menu test 3")
             if collides_down_and_up( hotspot.rect):
                 hotspot.sound.play()
 
@@ -43,7 +40,8 @@ class PauseMenu(GameMode):
                     temp = self.globals['current_note']
                     self.hotspots.append(Hotspot(pygame.Rect(20, 425, 200, 200), load_sound(temp), "current_note"))
                 print hotspot.name
-                
+    
+    """Since this holds a different copy of the globals than main does, update the wave file manually"""
     def update_current_note(self, wavFile):
         self.globals['current_note'] = wavFile
         self.hotspots = []

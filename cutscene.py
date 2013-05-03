@@ -4,10 +4,11 @@ import pygame
 class Cutscene(GameMode):
     def __init__( self, image, sound, duration_in_milliseconds, next_mode_name ):
         '''
-        Given a duration to show the splash screen 'duration_in_milliseconds',
+        Given a duration to show the image 'duration_in_milliseconds',
         and the name of the next mode,
         displays 'image' until either a mouse click or 'duration_in_milliseconds'
         milliseconds have elapsed.
+        Also plays sound!
         '''
         ## Initialize the superclass.
         GameMode.__init__( self )

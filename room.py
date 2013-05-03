@@ -2,7 +2,6 @@ import os, pygame, json, csv
 from cutscene import *
 from hotspot import *
 from exit_class import *
-from object_class import *
 from modes import ModeManager, GameMode, SimpleMode
 from pygame.locals import *
 from utils import *
@@ -25,14 +24,8 @@ class Room( GameMode ):
         self.image = None
         self.exits = []
         self.hotspots = []
-        #self.objects = []
         
         self._changeRoom('Bedroom')
-        
-        """    
-        self.inventory = Inventory()
-        self.message = ""
-        """
         
         self.mouse_down_pos = (-1,-1)
         
@@ -76,7 +69,7 @@ class Room( GameMode ):
                         self.exits.append(Exit(pygame.Rect(x,y,width,height), name))
                         
         
-        ## Add special cases to rooms
+        ## Add special cases to rooms, usually based on event flags
         if target == 'Kitchen':
             print self.globals['cookieEaten']
             if self.globals['cookieEaten'] == 0:
@@ -160,7 +153,7 @@ class Room( GameMode ):
             if collides_down_and_up( hotspot.rect):
                 hotspot.sound.play()
                 
-                
+                #This is messy but basically serves to add actions to hotspots, like changing event flags
                 if hotspot.name == 'cookie':
                     self.globals['cookieEaten'] = 1
                     self._changeRoom('Kitchen')
@@ -207,66 +200,16 @@ class Room( GameMode ):
                     
                 print hotspot.name
                 
-                """
-                if self.roomName is 'Kitchen' and hotspot.name is 'cookie':
-                    self.globals['cookieEaten'] = 1
-                    self._changeRoom('Kitchen')
-                elif self.roomName is 'Spices' and hotspot.name is 'pepper':
-                    self._changeRoom('Pepper')
-                elif self.roomName is 'Pepper' and hotspot.name is 'combination':
-                    self.globals['haveCombination'] = 1
-                    ##self._changeRoom('Kitchen')
-                elif self.roomName is 'Attic' and hotspot.name is 'switch':
-                    self.globals['atticDark'] = 0
-                    self._changeRoom('Attic')
-                elif self.roomName is 'Lock' and hotspot.name is 'lock' and self.globals['haveCombination'] is 1:
-                    self.globals['atticLocked'] = 0
-                    self._changeRoom('Garage')
-                elif self.roomName is 'CloseUpBox' and hotspot.name is 'box':
-                    self.switch_to_mode('End')
-                """
-                
         for exit in self.exits:
             if collides_down_and_up( exit.rect ):
                 self._changeRoom(exit.target)
-                print 'Change room'
-         
-        """         
-        for object in self.objects:
-            if collides_down_and_up( object.rect ):
-                print 'Pick up object'
-                object.item.onScreen = 0
-                self.inventory.add(object.item)
-                self.inventory.select(object.item.name)
-                self.message = object.item.desc
-        """
-    
+                print "Changing to "+exit.target
+
+                
     def draw( self, screen ):
         screen.fill( ( 255,255,255) )
         screen.blit( self.image, ( 0,0 ) )
-        
-        """
-        if pygame.font:
-            font = pygame.font.Font( None, 24 )
-            text = font.render( self.message, 1, ( 10, 10, 10 ) )
-            textpos = text.get_rect( top = 505, bottom = 550, left = 5 )
-            screen.blit( text, textpos )
-       
-           
-       #Draw objects on screen
-        for object in self.objects:
-            if object.item.onScreen:
-                screen.blit(object.item.onScreenImage, object.rect)
-                
-        ## Display Inventory
-        if self.inventory.current is not None:
-            screen.blit(self.inventory.current.inInvenImage, self.inventory.current.inInvenImage.get_rect(top = 575))
-        """
-        
-        
+
         pygame.display.flip()
         
-    """
-    def key_down(self,event):
-        if event.key == K_ESCAPE:
-            self.switch_to_mode('Pause')"""
+

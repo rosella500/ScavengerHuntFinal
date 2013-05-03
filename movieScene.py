@@ -5,10 +5,8 @@ from utils import *
 class MovieScene(GameMode):
     def __init__( self, movie, next_mode_name ):
         '''
-        Given a duration to show the splash screen 'duration_in_milliseconds',
-        and the name of the next mode,
-        displays 'image' until either a mouse click or 'duration_in_milliseconds'
-        milliseconds have elapsed.
+        Given the file name of a movie, will play that movie until it is over
+        and then transition to the next mode
         '''
         ## Initialize the superclass.
         GameMode.__init__( self )
@@ -26,7 +24,6 @@ class MovieScene(GameMode):
         pygame.mixer.music.load(os.path.join( 'data',self.movieName))
         self.movie = pygame.movie.Movie(os.path.join( 'data',self.movieName))
         if self.movie.has_video():
-            #movie.set_display(screen)
             pygame.mixer.music.play()
             self.movie.play()
             
@@ -34,13 +31,6 @@ class MovieScene(GameMode):
         
         self.so_far = 0
         pygame.mouse.set_visible( 0 )
-        """
-        self.movie = pygame.movie.Movie(os.path.join( 'data', self.movieName ))
-        self.duration = self.movie.get_length() * 1000
-        if (self.movie.has_audio()):
-            print ("movie has audio")
-        self.movie.set_volume (1.0)
-        self.movie.play()"""
     
     def exit( self ):
         '''
