@@ -132,6 +132,8 @@ def main():
     ## Start with Splash
     modes.switch_to_mode( 'SplashScreen' )
 
+    splash_bool = False
+
     pause = False
     
     ### The main loop.
